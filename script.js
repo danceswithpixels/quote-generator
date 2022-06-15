@@ -2,9 +2,10 @@ const quoteContainer = document.getElementById('quote-container');
 const quoteText = document.getElementById('quote');
 const authorText = document.getElementById('author');
 const twitterBtn = document.getElementById('twitter');
-const newQuoteBtn = document.getElementById('new-quote');
-const newJokeBtn = document.getElementById('new-joke');
 const newFactBtn = document.getElementById('new-fact');
+const newJokeBtn = document.getElementById('new-joke');
+const newQuoteBtn = document.getElementById('new-quote');
+const newRiddleBtn = document.getElementById('new-riddle');
 const loader = document.getElementById('loader');
 
 let apiQuotes = [];
@@ -13,6 +14,7 @@ let apiQuotes = [];
 function loading() {
     loader.hidden = false;
     quoteContainer.hidden = true;
+    authorText.classList.remove('blur');
 }
 
 // Hide Loading
@@ -23,7 +25,8 @@ function complete() {
 
 // Show New Quote
 function newQuote() {
-    // loading();
+    loading();
+    
     // Pick a random quote from apiQuotes array
     const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
     // Check if Author field is blank and replace it with 'Unknown'
@@ -47,6 +50,7 @@ function newQuote() {
 // Get Quotes From API
 async function getQuotes() {
     loading();
+
     const apiUrl = 'https://type.fit/api/quotes'
     try {
         const response = await fetch(apiUrl);
@@ -59,6 +63,8 @@ async function getQuotes() {
 }
 
 async function getFact() {
+    loading();
+
     const options = {
         method: 'GET',
         headers: {
@@ -81,6 +87,8 @@ async function getFact() {
 }
 
 async function getJoke() {
+    loading();
+
     const options = {
         method: 'GET',
         headers: {
@@ -107,10 +115,27 @@ async function getJoke() {
     complete();
 }
 
+function newRiddle() {
+    loading();
+
+    riddle = localRiddles[Math.floor(Math.random() * localRiddles.length)];
+    if (riddle.question) {
+        quoteText.textContent = riddle.question;
+    } else {
+        quoteText.textContent = riddle.riddle;
+    }
+
+    authorText.textContent = riddle.answer;
+    authorText.classList.add('blur');
+
+    complete();
+}
+
 // Event Listeners
-newQuoteBtn.addEventListener('click', newQuote);
 newFactBtn.addEventListener('click', getFact);
 newJokeBtn.addEventListener('click', getJoke);
+newQuoteBtn.addEventListener('click', newQuote);
+newRiddleBtn.addEventListener('click', newRiddle);
 
 // On Load
 getQuotes();

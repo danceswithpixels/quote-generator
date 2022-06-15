@@ -86,6 +86,17 @@ button:active {
     font-size: 1.5rem;
 }
 
+.blur {
+    color: transparent;
+    text-shadow: 0 0 20px black;
+    transition: 0.1s all;
+}
+
+.blur:hover {
+    color: #000;
+    transition: 0.1s all;
+}
+
 /* Loader */
 .loader {
     border: 16px solid #f3f3f3;
