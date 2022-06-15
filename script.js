@@ -40,6 +40,7 @@ function newQuote() {
     }
     // Set Quote, Hide Loader
     quoteText.textContent = quote.text;
+
     complete();
 }
 
@@ -53,7 +54,7 @@ async function getQuotes() {
         newQuote();
     } catch (error) {
         // Catch Error Here
-        // alert(error);
+        alert(error);
     }
 }
 
@@ -62,19 +63,20 @@ async function getFact() {
         method: 'GET',
         headers: {
             'X-RapidAPI-Key': '0718b1cea3msh87467e9c6d5eb8cp11c844jsnad4e41e6c298',
-            'X-RapidAPI-Host': 'random-facts2.p.rapidapi.com'
+            'X-RapidAPI-Host': 'random-facts4.p.rapidapi.com'
         }
     };
 
     try {
-        const response = await fetch('https://random-facts2.p.rapidapi.com/getfact', options);
+        const response = await fetch('https://random-facts4.p.rapidapi.com/get', options);
         fact = await response.json();
     } catch (error) {
         alert(error);
     }
 
-    quoteText.textContent = fact.Fact;
-    authorText.textContent = '';
+    quoteText.textContent = fact[0].description;
+    authorText.textContent = fact[0].topic + ', ' + fact[0].subtopic;
+
     complete();
 }
 
@@ -88,9 +90,8 @@ async function getJoke() {
     };
 
     try {
-        const response = await fetch('https://jokeapi-v2.p.rapidapi.com/joke/Any?format=json&idRange=0-150', options);
+        const response = await fetch('https://jokeapi-v2.p.rapidapi.com/joke/Any?format=json&safe-mode=true', options);
         joke = await response.json();
-        console.log(joke);
     } catch (error) {
         alert(error);
     }
