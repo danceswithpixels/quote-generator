@@ -26,7 +26,7 @@ function complete() {
 // Show New Quote
 function newQuote() {
     loading();
-    
+
     // Pick a random quote from apiQuotes array
     const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
     // Check if Author field is blank and replace it with 'Unknown'
@@ -98,7 +98,7 @@ async function getJoke() {
     };
 
     try {
-        const response = await fetch('https://jokeapi-v2.p.rapidapi.com/joke/Any?format=json&safe-mode=true', options);
+        const response = await fetch('https://jokeapi-v2.p.rapidapi.com/joke/Any?format=json&safe-mode', options);
         joke = await response.json();
     } catch (error) {
         alert(error);
