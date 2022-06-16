@@ -92,7 +92,7 @@ button:active {
     transition: 0.1s all;
 }
 
-.blur:hover, .blur:active {
+.blur:hover, .blur:focus {
     color: #000;
     transition: 0.1s all;
 }
